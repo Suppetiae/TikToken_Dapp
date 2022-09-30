@@ -35,7 +35,7 @@ const { provider, webSocketProvider } = configureChains(defaultChains, [
 const client = createClient({
   provider,
   webSocketProvider,
-  autoConnect: true,
+  autoConnect: false,
 });
 
 function CustomApp({ Component, pageProps }: AppPropsWithLayout) {

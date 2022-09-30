@@ -1,22 +1,44 @@
 import Button from '@/components/ui/button';
-import { WalletContext } from '@/lib/hooks/use-connect';
 import { Menu } from '@/components/ui/menu';
 import { Transition } from '@/components/ui/transition';
 import ActiveLink from '@/components/ui/links/active-link';
 import { ChevronForward } from '@/components/icons/chevron-forward';
 import { PowerIcon } from '@/components/icons/power';
 import { useModal } from '@/components/modal-views/context';
-import { useContext } from 'react'; 
-
-import { getSession, signOut } from 'next-auth/react';
 import { useAccount, useDisconnect, useConnect, useEnsName } from 'wagmi';
-import Moralis from 'moralis';
-import { EvmChain } from '@moralisweb3/evm-utils';
+import { useState, useEffect } from 'react';
 
 export default function WalletConnect() {
   const { openModal, closeModal } = useModal();
   const { address, isConnecting, isDisconnected } = useAccount();
   const { disconnect } = useDisconnect();
+
+  const [value, setValue] = useState({
+    name: '',
+    mobile: '',
+  });
+
+  useEffect(() => {
+    //you need to call this for nextjs, so this is performed only on client side.
+    if (typeof window !== 'undefined') {
+      let storedValue = localStorage.getItem('value');
+      if (storedValue) {
+        storedValue = JSON.parse(storedValue) || {};
+        // we explicitly get name and mobile value in case localStorage was manually modified.
+        const name = storedValue.name || '';
+        const mobile = storedValue.mobile || '';
+        setValue({ name, mobile }); //restore value from localStorage
+      }
+    }
+  });
+
+  const onChange = (e) => {
+    const name = e.target.name;
+
+    const newValue = { ...value, [name]: e.target.value };
+    setValue(newValue);
+    localStorage.setItem('value', JSON.stringify(newValue)); //save input to localstorage
+  };
 
   return (
     <>
@@ -82,15 +104,24 @@ export default function WalletConnect() {
               </Transition>
             </Menu>
           </div>
-
-          
-            <Button 
-            
-            className="shadow-main hover:shadow-large"
+          {value.name ? (
+            <Button
+              className="shadow-main hover:shadow-large"
+              name="name"
+              onChange={onChange}
             >
-              Connect To TikTok
+              {value.name}
             </Button>
-          
+          ) : (
+            <Button
+              onClick={() => openModal('TIK_VIEW')}
+              className="shadow-main hover:shadow-large"
+              name="name"
+              onChange={onChange}
+            >
+              Connect To Tiktok
+            </Button>
+          )}
         </div>
       ) : (
         <Button

@@ -5,43 +5,38 @@ import { Dialog } from '@/components/ui/dialog';
 import { Transition } from '@/components/ui/transition';
 import Button from '@/components/ui/button';
 import { Close } from '@/components/icons/close';
-import { useModal, MODAL_VIEW } from '@/components/modal-views/context';
+import { useTikModal, MODAL_VIEW } from '@/components/modal-views/tikcontext';
 // dynamic imports
 
-const TikView = dynamic(() => import('@/components/nft/tiktok'));
-const ShareView = dynamic(() => import('@/components/nft/share-view'));
-const SelectWallet = dynamic(() => import('@/components/nft/select-wallet'));
+const SelectTik = dynamic(() => import('@/components/nft/tiktok'));
 
-function renderModalContent(view: MODAL_VIEW | string) {
+function renderTikModalContent(view: MODAL_VIEW | string) {
   switch (view) {
-    case 'SHARE_VIEW':
-      return <ShareView />;
     case 'TIK_VIEW':
-      return <TikView />;
-    case 'WALLET_CONNECT_VIEW':
-      return <SelectWallet />;
+      return <SelectTik />;
+
     default:
       return null;
   }
 }
 
-export default function ModalContainer() {
+export default function TikModalContainer() {
   const router = useRouter();
-  const { view, isOpen, closeModal } = useModal();
+  const { view, isTikOpen, closeTikModal } = useTikModal();
   useEffect(() => {
     // close search modal when route change
-    router.events.on('routeChangeStart', closeModal);
+    router.events.on('routeChangeStart', closeTikModal);
     return () => {
-      router.events.off('routeChangeStart', closeModal);
+      router.events.off('routeChangeStart', closeTikModal);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={isTikOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-50 h-full w-full overflow-y-auto overflow-x-hidden p-4 text-center sm:p-6 lg:p-8 xl:p-10 3xl:p-12"
-        onClose={closeModal}
+        onClose={closeTikModal}
       >
         <Transition.Child
           as={Fragment}
@@ -56,7 +51,7 @@ export default function ModalContainer() {
         </Transition.Child>
 
         {/* This element is to trick the browser into centering the modal contents. */}
-        {view && view !== 'SEARCH_VIEW' && (
+        {view && view !== 'TIK_VIEW' && (
           <span className="inline-block h-full align-middle" aria-hidden="true">
             &#8203;
           </span>
@@ -68,7 +63,7 @@ export default function ModalContainer() {
             size="small"
             color="gray"
             shape="circle"
-            onClick={closeModal}
+            onClick={closeTikModal}
             className="opacity-50 hover:opacity-80 "
           >
             <Close className="h-auto w-[13px]" />
@@ -85,7 +80,7 @@ export default function ModalContainer() {
           leaveTo="opacity-0 scale-105"
         >
           <div className="relative z-50 inline-block w-full text-left align-middle xs:w-auto">
-            {view && renderModalContent(view)}
+            {view && renderTikModalContent(view)}
           </div>
         </Transition.Child>
       </Dialog>

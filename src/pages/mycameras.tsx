@@ -1,35 +1,20 @@
 import { useState } from 'react';
 import type { NextPageWithLayout } from '@/types';
-import cn from 'classnames';
+
 import { NextSeo } from 'next-seo';
-import { Transition } from '@/components/ui/transition';
+
 import DashboardLayout from '@/layouts/_dashboard';
 import { RadioGroup } from '@/components/ui/radio-group';
-import { Listbox } from '@/components/ui/listbox';
-import Image from '@/components/ui/image';
-import Button from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import Input from '@/components/ui/forms/input';
-import Textarea from '@/components/ui/forms/textarea';
-import Uploader from '@/components/ui/forms/uploader';
-import InputLabel from '@/components/ui/input-label';
-import ToggleBar from '@/components/ui/toggle-bar';
 
-import { ChevronDown } from '@/components/icons/chevron-down';
-import { Ethereum } from '@/components/icons/ethereum';
-import { Flow } from '@/components/icons/flow';
-import { Warning } from '@/components/icons/warning';
-import { Unlocked } from '@/components/icons/unlocked';
-import Avatar from '@/components/ui/avatar';
+import Image from '@/components/ui/image';
+
 import { AiOutlineArrowUp, AiOutlineArrowRight } from 'react-icons/ai';
 //images
-import AuthorImage from '@/assets/images/author.jpg';
 import Cam1 from '@/assets/images/5.png';
 import Cam2 from '@/assets/images/6.png';
 import Cam3 from '@/assets/images/7.png';
 import Cam4 from '@/assets/images/8.png';
 import Cam5 from '@/assets/images/9.png';
-import NFT1 from '@/assets/images/nft/nft-1.jpg';
 
 const CameraOptions = [
   {
@@ -81,7 +66,7 @@ function CameraType({ value, onChange }: CameraTypeProps) {
           {({ checked }) => (
             <span
               className={`relative flex cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-tte bg-white text-center text-sm font-medium tracking-wider shadow-card transition-all hover:shadow-large dark:bg-light-dark ${
-                checked ? 'border-brand' : 'border-white dark:border-light-dark'
+                checked ? 'border-tte' : 'border-nftbg'
               }`}
             >
               <span className="relative flex h-28 flex-col items-center justify-center gap-3 px-2 text-center text-xs uppercase sm:h-28 sm:gap-4 sm:text-sm">

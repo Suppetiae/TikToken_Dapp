@@ -19,7 +19,6 @@ import Cam3 from '@/assets/images/7.png';
 import Cam4 from '@/assets/images/8.png';
 import Cam5 from '@/assets/images/9.png';
 
-
 const CameraOptions = [
   {
     name: 'CameraOne',
@@ -70,7 +69,7 @@ function CameraType({ value, onChange }: CameraTypeProps) {
           {({ checked }) => (
             <span
               className={`relative flex cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-tte bg-white text-center text-sm font-medium tracking-wider shadow-card transition-all hover:shadow-large dark:bg-light-dark ${
-                checked ? 'border-brand' : 'border-white dark:border-light-dark'
+                checked ? 'border-tte' : 'border-nftbg'
               }`}
             >
               <span className="relative flex h-14 flex-col items-center justify-center gap-3 px-2 text-center text-xs uppercase sm:h-28 sm:gap-4 sm:text-sm">

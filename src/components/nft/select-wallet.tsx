@@ -20,13 +20,12 @@ export default function SelectWallet({ ...props }) {
   const { signMessageAsync } = useSignMessage();
   const { push } = useRouter();
   useEffect(() => {
-    if (address) closeModal();
-  }, [address, closeModal]);
+    if (isConnecting) closeModal();
+  }, [isConnecting, closeModal]);
 
   const metamask = async () => {
     if (isConnected) {
       await disconnectAsync();
-     
     }
 
     const { account, chain } = await connectAsync({
