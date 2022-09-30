@@ -21,7 +21,7 @@ export default function WalletConnect() {
   useEffect(() => {
     //you need to call this for nextjs, so this is performed only on client side.
     if (typeof window !== 'undefined') {
-      let storedValue = localStorage.getItem('value');
+      let storedValue = sessionStorage.getItem('value');
       if (storedValue) {
         storedValue = JSON.parse(storedValue) || {};
         // we explicitly get name and mobile value in case localStorage was manually modified.
@@ -37,7 +37,7 @@ export default function WalletConnect() {
 
     const newValue = { ...value, [name]: e.target.value };
     setValue(newValue);
-    localStorage.setItem('value', JSON.stringify(newValue)); //save input to localstorage
+    sessionStorage.setItem('value', JSON.stringify(newValue)); //save input to localstorage
   };
 
   return (

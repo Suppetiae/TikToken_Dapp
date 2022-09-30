@@ -9,6 +9,7 @@ import { useModal, MODAL_VIEW } from '@/components/modal-views/context';
 // dynamic imports
 
 const TikView = dynamic(() => import('@/components/nft/tiktok'));
+const DiscView = dynamic(() => import('@/components/nft/tikdisconnect'));
 const ShareView = dynamic(() => import('@/components/nft/share-view'));
 const SelectWallet = dynamic(() => import('@/components/nft/select-wallet'));
 
@@ -18,6 +19,8 @@ function renderModalContent(view: MODAL_VIEW | string) {
       return <ShareView />;
     case 'TIK_VIEW':
       return <TikView />;
+    case 'DISC_VIEW':
+      return <DiscView />;
     case 'WALLET_CONNECT_VIEW':
       return <SelectWallet />;
     default:
